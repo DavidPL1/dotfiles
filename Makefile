@@ -30,9 +30,12 @@ suckless-tools-setup:
 	sudo ln -s ${HOME}/suckless-tools/install/st/st /usr/bin/st
 	sudo ln -s ${HOME}/suckless-tools/install/slstatus/slstatus /usr/bin/slstatus
 
+dwm-switcher:
+	sudo ln -s ${HOME}/scripts/switch_dwm.sh /usr/bin/switch_dwm
+
 stow:
 	stow --target $(HOME) --dir $(current_dir) --restow $(stow_dirs)
 
-all: init oh-my-zsh suckless-tools-setup stow
+all: init oh-my-zsh suckless-tools-setup dwm-switcher stow
 
 .DEFAULT_GOAL := stow
