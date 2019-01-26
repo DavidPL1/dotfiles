@@ -68,7 +68,11 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+
+/* Replaced by rofi */
+//static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+
+static const char *dmenucmd[] = { "rofi", "-m", dmenumon, "-show", "run", "-width", "400", "-lines", "5", "-separator-style", "none", "-font", "monospace 12", NULL };
 static const char *termcmd[]  = { "st", NULL };
 /* better lockscreen cmd */
 static const char *lockcmd[]  = { "betterlockscreen", "-l", NULL };
