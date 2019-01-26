@@ -1,0 +1,7 @@
+[user]
+	email = dleins@techfak.uni-bielefeld.de
+	name = dleins
+[http]
+	postBuffer = 524288000
+[push]
+	default = simple
