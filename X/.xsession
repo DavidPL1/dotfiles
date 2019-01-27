@@ -21,12 +21,16 @@ switch_dwm work
 
 # Check for file as logout flag
 while [ ! -f /tmp/DWM_LOGOUT ]; do
-	ssh-agent dwm
+
+    echo "$(date)" >> /tmp/dwm_logfile
+    echo "No logout file found - starting DWM" >> /tmp/dwm_logfile
+    dwm >> /tmp/dwm_logfile
 done
 
 ### Cleanup on logout
 
 # Remove logout flag file to reset for next login
-rm /tmp/DWM_LOGOUT
 kill $PID_SLSTATUS
 kill $PID_REDSHIFT
+rm /tmp/DWM_LOGOUT
+exit
