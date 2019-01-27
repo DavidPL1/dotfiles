@@ -15,9 +15,9 @@ slstatus &
 redshift &
 # Set wallpaper
 feh --bg-scale /home/spectre/.wallpaper_br
+switch_dwm work
 
 while :; do
 	ssh-agent dwm
 done
 
-switch_dwm work
