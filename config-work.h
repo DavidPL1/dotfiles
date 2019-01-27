@@ -29,19 +29,22 @@ static const char *colors[][3] = {
 /* some cool icons:
  *                                                               
  */
-static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
+static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class                  instance    title       tags mask     isfloating   monitor */
-    {  "TelegramDesktop",     NULL,       NULL,       1 << 4,       0,           -1 },
-    {  "Thunderbird",         NULL,       NULL,       1 << 5,       0,           -1 },
-    {  "Pycharm",             NULL,       NULL,       1 << 1,       0,           -1 },
-	{ "Gimp",                 NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",              NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class                  instance                        title       tags mask     isfloating   monitor */
+
+    { "tbrains-pycharm-ce",   "sun-awt-X11-XFramePeer",       NULL,       1 << 1,       0,           -1 },
+    { "jetbrains-idea-ce",    "sun-awt-X11-XFramePeer",       NULL,       1 << 7,       0,           -1 },
+    { "TelegramDesktop",      NULL,                           NULL,       1 << 4,       0,           -1 },
+    { "Thunderbird",          NULL,                           NULL,       1 << 5,       0,           -1 },
+    { "Pycharm",              NULL,                           NULL,       1 << 1,       0,           -1 },
+	{ "Gimp",                 NULL,                           NULL,       0,            1,           -1 },
+	{ "Firefox",              NULL,                           NULL,       1 << 8,       0,           -1 },
 };
 
 /* layout(s) */
