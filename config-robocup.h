@@ -55,7 +55,7 @@ static const Rule rules[] = {
 
     { "tbrains-pycharm-ce",         "sun-awt-X11-XFramePeer",       NULL,       1 << 6,       0,           -1 },
     { "jetbrains-idea-ce",          "sun-awt-X11-XFramePeer",       NULL,       1 << 7,       0,           -1 },
-    { "XTerm",                                          NULL,       NULL,       NULL,         1,           -1 },
+    { "XTerm",                                          NULL,       NULL,       0,            1,           -1 },
     { NULL,                                             NULL,       "cmd_vel",  1 << 3,       1,           -1 },
     { NULL,           NULL,       "rosrun keyboard_teleop keyboard_teleop.py ", 1 << 3,       1,           -1 },
     { "rviz",                                           NULL,       NULL,       1 << 3,       0,           -1 },
@@ -64,7 +64,7 @@ static const Rule rules[] = {
     { "Vdemo2_controller.tcl",                          NULL,       NULL,       1 << 1,       1,           -1 },
     { "Thunderbird",                                    NULL,       NULL,       1 << 5,       0,           -1 },
     {  "TelegramDesktop",                               NULL,       NULL,       1 << 4,       0,           -1 },
-	{ "de.unibi.citec.clf.bonsai.engine.fxgui.FXGUI",   NULL,       NULL,       NULL,         1,           -1 },
+	{ "de.unibi.citec.clf.bonsai.engine.fxgui.FXGUI",   NULL,       NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
