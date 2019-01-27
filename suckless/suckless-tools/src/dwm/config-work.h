@@ -2,6 +2,7 @@
 
 /* Extra import for fn keys */
 #include <X11/XF86keysym.h>
+#include "tcl.c"
 
 /* appearance */
 
@@ -13,15 +14,27 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = {"monospace:size=10", "fontawesome:size=10", "FuraMono Nerd Font Mono:size=14"};
 static const char dmenufont[]       = "monospace:size=10";
 
-static const char col_gray1[] = "#2e3440";
-static const char col_gray2[] = "#2e3440";
-static const char col_gray3[] = "#d8dee9";
-static const char col_gray4[] = "#d8dee9";
-static const char col_cyan[] = "#bf616a";
+static const char nord0[] = "#2E3440";
+static const char nord1[] = "#3B4252";
+static const char nord2[] = "#434C5E";
+static const char nord3[] = "#4C566A";
+static const char nord4[] = "#D8DEE9";
+static const char nord5[] =  "#E5E9F0";
+static const char nord6[] =  "#ECEFF4";
+static const char nord7[] =  "#8FBCBB";
+static const char nord8[] =  "#88C0D0";
+static const char nord9[] =  "#81A1C1";
+static const char nord10[] =  "#5E81AC";
+static const char nord11[] =  "#BF616A";
+static const char nord12[] =  "#D08770";
+static const char nord13[] =  "#EBCB8B";
+static const char nord14[] =  "#A3BE8C";
+static const char nord15[] = "#B48EAD";
+
 static const char *colors[][3] = {
 /* fg bg border */
-    [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-    [SchemeSel] = { col_gray4, col_cyan, col_cyan },
+    [SchemeNorm] = { nord6, nord2, nord0 },
+    [SchemeSel] = { nord4, nord10, nord10},
 };
 
 
@@ -29,19 +42,22 @@ static const char *colors[][3] = {
 /* some cool icons:
  *                                                               
  */
-static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
+static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class                  instance    title       tags mask     isfloating   monitor */
-    {  "TelegramDesktop",     NULL,       NULL,       1 << 4,       0,           -1 },
-    {  "Thunderbird",         NULL,       NULL,       1 << 5,       0,           -1 },
-    {  "Pycharm",             NULL,       NULL,       1 << 1,       0,           -1 },
-	{ "Gimp",                 NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",              NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class                  instance                        title       tags mask     isfloating   monitor */
+
+    { "tbrains-pycharm-ce",   "sun-awt-X11-XFramePeer",       NULL,       1 << 1,       0,           -1 },
+    { "jetbrains-idea-ce",    "sun-awt-X11-XFramePeer",       NULL,       1 << 7,       0,           -1 },
+    { "TelegramDesktop",      NULL,                           NULL,       1 << 4,       0,           -1 },
+    { "Thunderbird",          NULL,                           NULL,       1 << 5,       0,           -1 },
+    { "Pycharm",              NULL,                           NULL,       1 << 1,       0,           -1 },
+	{ "Gimp",                 NULL,                           NULL,       0,            1,           -1 },
+	{ "Firefox",              NULL,                           NULL,       1 << 8,       0,           -1 },
 };
 
 /* layout(s) */
@@ -54,6 +70,7 @@ static const Layout layouts[] = {
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
+    { "|||",      tcl },     /* Three column layout */
 };
 
 /* key definitions */
@@ -105,6 +122,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
