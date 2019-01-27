@@ -84,6 +84,9 @@ static const char *mutevol[] = {"amixer", "-D", "pulse", "set", "Master", "toggl
 static const char *upbrightness[]   = {"/bin/bash", "-c", "echo $(($(cat /sys/class/backlight/intel_backlight/brightness) + 75)) > /sys/class/backlight/intel_backlight/brightness", NULL};
 static const char *downbrightness[] = {"/bin/bash", "-c", "echo $(($(cat /sys/class/backlight/intel_backlight/brightness) - 75)) > /sys/class/backlight/intel_backlight/brightness", NULL};
 
+/* Logout command */
+static const char *logoutcmd[] = {"/bin/bash", "-c", "touch /tmp/DWM_LOGOUT && killall dwm", NULL};
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
@@ -119,8 +122,10 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	
-    /* Quit on alt+e */
+    /* Quit on alt+shift+e */
     { MODKEY|ShiftMask,             XK_e,      quit,           {0} },
+    /* Logout on alt+control+e */
+    { MODKEY|ControlMask,           XK_e,      spawn,          {.v = logoutcmd } },
     /* lock on alt+ctrl+l */
     { MODKEY|ControlMask,           XK_l,      spawn,          {.v = lockcmd } },
 
