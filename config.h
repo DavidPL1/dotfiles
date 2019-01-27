@@ -61,7 +61,7 @@ static const char unknown_str[] = "n/a";
  */
 static const struct arg args[] = {
 	/* function format          argument */
-    { run_command, "Profile: %s | ", "cat /tmp/DWM_PROFILE"},
+    { run_command, " Profile: %s | ", "cat /tmp/DWM_PROFILE"},
     { run_command, " %3s%% | ", "echo $(($(cat /sys/class/backlight/intel_backlight/brightness)*100/1515))"},
     { run_command, " %3s | ", "amixer -c 0 -D sysdefault -M | grep -m 1 -o -E [[:digit:]]+%"},
     { wifi_essid,    " %s | ",            "wlp61s0"},
