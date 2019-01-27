@@ -2,7 +2,7 @@
 
 /* Extra import for fn keys */
 #include <X11/XF86keysym.h>
-#include "tcl.h"
+#include "tcl.c"
 
 /* appearance */
 
@@ -14,15 +14,27 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = {"monospace:size=10", "fontawesome:size=10", "FuraMono Nerd Font Mono:size=14"};
 static const char dmenufont[]       = "monospace:size=10";
 
-static const char col_gray1[] = "#2e3440";
-static const char col_gray2[] = "#2e3440";
-static const char col_gray3[] = "#d8dee9";
-static const char col_gray4[] = "#d8dee9";
-static const char col_cyan[] = "#bf616a";
+static const char nord0[] = "#2E3440";
+static const char nord1[] = "#3B4252";
+static const char nord2[] = "#434C5E";
+static const char nord3[] = "#4C566A";
+static const char nord4[] = "#D8DEE9";
+static const char nord5[] =  "#E5E9F0";
+static const char nord6[] =  "#ECEFF4";
+static const char nord7[] =  "#8FBCBB";
+static const char nord8[] =  "#88C0D0";
+static const char nord9[] =  "#81A1C1";
+static const char nord10[] =  "#5E81AC";
+static const char nord11[] =  "#BF616A";
+static const char nord12[] =  "#D08770";
+static const char nord13[] =  "#EBCB8B";
+static const char nord14[] =  "#A3BE8C";
+static const char nord15[] = "#B48EAD";
+
 static const char *colors[][3] = {
 /* fg bg border */
-    [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-    [SchemeSel] = { col_gray4, col_cyan, col_cyan },
+    [SchemeNorm] = { nord6, nord2, nord0 },
+    [SchemeSel] = { nord4, nord10, nord10},
 };
 
 
