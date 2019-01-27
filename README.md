@@ -1,3 +1,4 @@
 # Dotfiles
-![Screenshot](/screenshot.png?raw=true)
+![Screenshot](/screen1.png?raw=true)
+![Screenshot](/screen2.png?raw=true)
 
