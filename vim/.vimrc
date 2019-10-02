@@ -1,22 +1,12 @@
 """"""""""""""""""""""""""""""""""""""""""""
 "
-" Plugins
-"
-""""""""""""""""""""""""""""""""""""""""""""
-call plug#begin('~/.vim/plugged')
-Plug 'chase/vim-ansible-yaml'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-syntastic/syntastic'
-Plug 'airblade/vim-gitgutter'
-Plug 'arcticicestudio/nord-vim'
-call plug#end()
-
-""""""""""""""""""""""""""""""""""""""""""""
-"
 " General
 "
 """"""""""""""""""""""""""""""""""""""""""""
+"
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
 
 " Install vim-plug if missing
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -33,10 +23,6 @@ set history=500
 
 let mapleader = ","
 let g:mapleader = ","
-
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
 
 " Enable modelines
 set modeline
@@ -122,129 +108,47 @@ endif
 " Colors & Fonts
 "
 """"""""""""""""""""""""""""""""""""""""""""
-
-" Enable syntax highlighting
-syntax enable
-
-" Set ruler to 80 chars for sanity
-set colorcolumn=80
-
-" Enable 256 colors palette in Gnome Terminal
-if $COLORTERM == 'truecolor'
-    set t_Co=256
-endif
-
-" Set background color
-set background=dark
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
-
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
+colorscheme nord
 
 """"""""""""""""""""""""""""""""""""""""""""
 "
-" Text, Tabs, Indentations
+" Plugins
 "
 """"""""""""""""""""""""""""""""""""""""""""
+call plug#begin('~/.vim/plugged')
+Plug 'chase/vim-ansible-yaml'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-syntastic/syntastic'
+Plug 'airblade/vim-gitgutter'
+Plug 'arcticicestudio/nord-vim'
+Plug 'lervag/vimtex'
+Plug 'gerw/vim-latex-suite'
+Plug 'sirver/ultisnips'
+Plug 'scrooloose/nerdtree'
+call plug#end()
 
-" Use spaces instead of tabs
-set expandtab
+""""" NERDTREE
+map <C-n> :NERDTreeToggle<CR>
 
-" Be smart when using tabs ;)
-set smarttab
+""""" ULTISNIPS
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+""""" VIMTEX
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
 
-" Linebreaks
-set lbr
-au BufRead /tmp/mutt-* set tw=72
+""""" LATEX-SUITE
+set iskeyword+=:
 
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
-
-" Highlight unwanted spaces
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
-
-" Delete trailing white space on save, useful for some filetypes ;)
-fun! CleanExtraSpaces()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    silent! %s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-endfun
-
-if has("autocmd")
-    autocmd BufWritePre *.* :call CleanExtraSpaces()
-endif
-
-" Fix YAML indentations
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
-
-""""""""""""""""""""""""""""""""""""""""""""
-"
-" Airline
-"
-""""""""""""""""""""""""""""""""""""""""""""
-
-" Automatically displays all buffers when there's only one tab open
-let g:airline#extensions#tabline#enabled = 1
-
-" Use powerline fonts
-let g:airline_powerline_fonts = 1
-
-" Solarize all the things
-let g:airline_theme='solarized'
+""""" Spelling Correction
+setlocal spell
+set spelllang=en_gb
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn persistent undo on
-" means that you can undo even when you close a buffer/VIM
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-try
-    set undodir=~/.vim_runtime/temp_dirs/undodir
-    set undofile
-catch
-endtry
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Command mode related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Bash like keys for the command line
-cnoremap <C-A>		<Home>
-cnoremap <C-E>		<End>
-cnoremap <C-K>		<C-U>
-cnoremap <C-P>      <Up>
-cnoremap <C-N>      <Down>
-
-""""""""""""""""""""""""""""""""""""""""""""
-"
-" Helper functions
-"
-""""""""""""""""""""""""""""""""""""""""""""
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    endif
-    return ''
-endfunction

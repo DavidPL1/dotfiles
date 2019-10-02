@@ -1,0 +1,455 @@
+;   learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;
+;=====================================================
+
+[colors]
+background = #222
+background-alt = #444
+foreground = #dfdfdf
+foreground-alt = #55
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+[settings]
+screenchange-reload = true
+
+[bar/bottom]
+monitor = eDP-1-1 
+
+font-0 = Hack:pixelsize=16;-7
+font-1 = Unifont:size=6:heavy:fontformat=truetype;-2
+font-2 = Siji:size=10;1
+font-3 = FontAwesome:size=11;-1
+
+modules-left = i3
+modules-center = 
+modules-right = cpu memory
+
+background = #00000000
+foreground = ${colors.foreground}
+
+bottom = true
+width = 100%
+height = 25
+offset-x = 0
+offset-y = 0
+
+padding-left = 0
+padding-right = 4
+module-margin-left = 4
+module-margin-right = 4
+
+[bar/example]
+monitor = eDP-1-1
+width = 100%
+height = 35
+offset-x = 0
+offset-y = 0
+
+;background = ${xrdb:color9}
+
+;background transparente
+background = #00000000
+;background = #2F343F
+foreground = ${colors.foreground}
+
+overline-size = 0
+overline-color = #f00
+underline-size = 0
+underline-color = #00f
+
+border-bottom-size = 1
+border-bottom-color = #0088CC
+
+/padding-left = 0
+padding-right = 2
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = Hack:pixelsize=16;-7
+font-1 = Unifont:pixelsize=18:heavy:fontformat=truetype;-7
+font-2 = Siji:size=10;-1
+font-3 = FontAwesome:size=7;-7
+
+enable-ipc = true
+
+modules-left = menu
+modules-center = xwindow wireless-network eth 
+modules-right = volume xbacklight demo battery date powermenu
+
+tray-position = right
+tray-padding = 0
+;tray-transparent = true
+
+;wm-restack = i3
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+
+bottom = false
+
+[module/demo]
+type = custom/ipc
+hook-0 = ~/.config/polybar/modules/backlight-inc.sh
+hook-1 = ~/.config/polybar/modules/backlight-dec.sh
+hook-2 = whoami
+initial = 1
+click-left = polybar-msg -p %pid% hook demo 1
+click-right = polybar-msg -p %pid% hook demo 2
+double-click-left = polybar-msg -p %pid% hook demo 3
+
+[module/xbacklight]
+type = internal/backlight
+card = intel_backlight
+
+; Available tags:
+;   <label> (default)
+;   <ramp>
+;   <bar>
+format = <bar>
+click-right = echo right
+click-left = echo left
+;scroll-up = echo scroll up %counter%
+;scroll-down = echo scroll up %percentage%
+
+; Available tokens:
+;   %percentage% (default)
+label = %percentage%%
+
+; Only applies if <ramp> is used
+ramp-0 = 🌕
+ramp-1 = 🌔
+ramp-2 = 🌓
+ramp-3 = 🌒
+ramp-4 = 🌑
+
+; Only applies if <bar> is used
+bar-width = 10
+bar-indicator = |
+bar-fill = ─
+bar-empty = ─
+
+[module/xwindow]
+type = internal/xwindow
+;label = %title:0:40:...%
+;label = %{o#503896 u#503896 +o +u B#301674}  %title:0:40:...%  %{B- -o -u}
+label = %title:0:70:...%  %{B- -o -u}
+
+[module/xtitle]
+type = custom/script
+exec = xwindowname tail
+tail = true
+format = %{T3} <output> %{T-}
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+label-layout = %{F#55}%{F-} %layout%
+label-layout-underline = ${colors.secondary}
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-background = ${colors.secondary}
+label-indicator-underline = ${colors.secondary}
+
+[module/battery]
+type = internal/battery
+full-at = 98
+
+label-active-font = 2
+
+format-charging = <animation-charging> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+format-full = <ramp-capacity> <label-full>
+
+ramp-capacity-0 = 
+ramp-capacity-0-foreground = #f53c3c
+ramp-capacity-1 = 
+ramp-capacity-1-foreground = #ffa900
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+bar-capacity-width = 10
+bar-capacity-format = %{+u}%{+o}%fill%%empty%%{-u}%{-o}
+bar-capacity-fill = 
+bar-capacity-fill-foreground = #ddffffff
+bar-capacity-fill-font = 3
+bar-capacity-empty = 
+bar-capacity-empty-font = 3
+bar-capacity-empty-foreground = #44ffffff
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 750
+
+[module/menu]
+type = custom/menu
+
+; "menu-LEVEL-N" has the same properties as "label-NAME" with
+; the additional "exec" property
+;
+; Available exec commands:
+;   menu-open-LEVEL
+;   menu-close
+; Other commands will be executed using "/usr/bin/env sh -c $COMMAND"
+;
+
+label-open = Apps
+label-close = x
+label-separator = |
+
+menu-0-0 = Browsers
+menu-0-0-exec = menu-open-1
+menu-0-2 = Multimedia
+menu-0-2-exec = menu-open-3
+
+menu-1-0 = Firefox
+menu-1-0-exec = firefox &
+menu-1-1 = Chromium
+menu-1-1-exec = chromium &
+
+menu-2-0 = Gimp
+menu-2-0-exec = gimp &
+menu-2-1 = Scrot
+menu-2-1-exec = scrot &
+
+menu-3-0 = Gvim
+menu-3-0-exec = gvim &
+
+[module/filesystem]
+type = internal/fs
+interval = 0.5
+mount-0 = /
+
+label-mounted =  %mountpoint%: %percentage_free%
+label-unmounted = %mountpoint%: not mounted
+label-unmounted-foreground = ${colors.foreground-alt}
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = true
+
+strip-wsnumbers = true
+pin-workspaces = true
+
+label-mode-padding = 2
+label-mode-foreground = #0088CC
+
+label-unfocused-foreground = #555555
+label-unfocused-padding = 1
+
+label-visible-foregroud = #888888
+label-visible-padding = 1
+
+label-focused-foreground = #0088CC
+label-focused-padding = 2
+
+label-urgent-padding = 1
+
+label-dimmed-underline = ${BAR.background}
+label-focused-underline = #0088CC
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+
+format = <label> <ramp-coreload>
+font-1 = Unifont:size=5;-3
+
+label = CPU
+;label-font = 3
+;label-foreground = #0088CC
+
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 4
+ramp-coreload-0-foreground = #0088CC
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 4
+ramp-coreload-1-foreground = #0088CC
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 4
+ramp-coreload-2-foreground = #0088CC
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 4
+ramp-coreload-3-foreground = #0088CC
+
+[module/memory]
+type = internal/memory
+format = <label> <bar-used>
+label = RAM [%gb_used%] 
+;label-foreground = #0088CC
+
+bar-used-width = 10
+bar-used-gradient = true
+bar-used-foreground-0 = #0088CC
+bar-used-foreground-1 = #2f8419
+bar-used-foreground-2 = #f5a70a
+bar-used-foreground-3 = #ed5456
+bar-used-indicator = █
+bar-used-indicator-font = 3
+bar-used-indicator-foreground = #fff
+bar-used-fill = █
+bar-used-fill-font = 3
+bar-used-empty = █
+bar-used-empty-font = 3
+bar-used-empty-foreground = #44
+
+[module/wireless-network]
+type = internal/network
+interface = wlp61s0
+interval = 3.0
+ping-interval = 10
+
+;format-connected-underline = #0088CC
+label-connected =  [ :   %upspeed% | :   %downspeed% ]
+;label-connected-foreground = #2aa198
+
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = NET %ifname% disconnected
+;label-disconnected-foreground = NET ${colors.foreground-alt}
+
+;Required if <bar-progress> is used
+bar-progress-width = 5
+bar-progress-format = %{+u}%{+o}%fill%%{-u}%{-o}%indicator%%{+u}%{+o}%empty%%{-u}%{-o
+bar-progress-indicator = |
+bar-progress-indicator-foreground = ${BAR.foreground}
+bar-progress-indicator-font = 3
+bar-progress-fill = █
+bar-progress-fill-foreground = #5a5
+bar-progress-fill-font = 3
+bar-progress-empty = █
+bar-progress-empty-foreground = #555
+bar-progress-empty-font = 3
+
+[module/eth]
+type = internal/network
+interface = enp0s31f6
+interval = 3.0
+
+;format-connected-underline = #0088CC
+label-connected =  [ :   %upspeed% | :   %downspeed% ]
+;label-connected-foreground = #2aa198
+
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = NET %ifname% disconnected
+;label-disconnected-foreground = NET ${colors.foreground-alt}
+
+;Required if <bar-progress> is used
+bar-progress-width = 5
+bar-progress-format = %{+u}%{+o}%fill%%{-u}%{-o}%indicator%%{+u}%{+o}%empty%%{-u}%{-o}
+bar-progress-indicator = |
+bar-progress-indicator-foreground = ${BAR.foreground}
+bar-progress-indicator-font = 3
+bar-progress-fill = █
+bar-progress-fill-foreground = #5a5
+bar-progress-fill-font = 3
+bar-progress-empty = █
+bar-progress-empty-foreground = #555
+bar-progress-empty-font = 3
+
+[module/date]
+type = internal/date
+interval = 0.5
+
+date =
+date-alt = " %d/%m/%Y |"
+
+time =  %d/%m/%Y | %H:%M:%S
+time-alt = %H:%M:%S
+
+format-prefix = 
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #0a6cf5
+
+label = %date% %time%
+
+[module/volume]
+type = internal/volume
+
+format-volume = <label-volume> <bar-volume>
+label-volume = VOL
+label-volume-foreground = ${root.foreground}
+
+format-muted-prefix = " "
+format-muted-foreground = ${colors.foreground-alt}
+label-muted = sound muted
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = true
+bar-volume-indicator = │
+bar-volume-indicator-font = 2
+bar-volume-indicator-foreground = #0088CC
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+format = <ramp> <label>
+format-underline = #0088CC
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${self.format-underline}
+
+label =   %temperature%
+labeil-foreground = #0088CC
+label-warn = %temperature%
+label-warn-foreground = ${colors.secondary}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${colors.foreground-alt}
+
+[module/powermenu]
+type = custom/menu
+
+format-spacing = 1
+
+label-open =  power
+label-open-foreground = ${colors.secondary}
+label-close =  cancel
+label-close-foreground = ${colors.secondary}
+label-separator = |
+label-separator-foreground = ${colors.foreground-alt}
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = sudo reboot
+
+menu-2-0 = power off
+menu-2-0-exec = sudo poweroff
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+
+; vim:ft=dosini

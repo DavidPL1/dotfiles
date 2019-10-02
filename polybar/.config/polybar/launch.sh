@@ -1,3 +1,5 @@
+#!/bin/sh
+
 #Terminate already running bar instances
 killall -q polybar
 
@@ -5,7 +7,9 @@ killall -q polybar
 while pgrep polybar >/dev/null; do sleep 1; done
 
 # Launch bar1 and bar2
-polybar example &
-polybar bottom 
+for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+    MONITOR=$m polybar --reload top &
+    MONITOR=$m polybar --reload bottom &
+done
 
 echo "Shutting down..."

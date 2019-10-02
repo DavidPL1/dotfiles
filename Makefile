@@ -1,5 +1,5 @@
 current_dir  := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-exclude_dirs := fonts/ colors/
+exclude_dirs := fonts/ colors/ suckless/
 stow_dirs    := $(filter-out $(exclude_dirs), $(wildcard */))
 
 init:

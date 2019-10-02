@@ -19,6 +19,13 @@ export PID_REDSHIFT=$!
 feh --bg-scale /home/spectre/.wallpaper_br
 switch_dwm work
 
+# Bottom right system tray (nm-applet, blueman-applet, ..)
+trayer --expand true --edge bottom --align right --widthtype request --transparent true --tint black --SetDockType true
+export PID_TRAYER=$!
+
+nm-applet &
+blueman-applet &
+
 # Check for file as logout flag
 while [ ! -f /tmp/DWM_LOGOUT ]; do
 
@@ -32,5 +39,8 @@ done
 # Remove logout flag file to reset for next login
 kill $PID_SLSTATUS
 kill $PID_REDSHIFT
+kill $PID_TRAYER
+killall nm-applet
+killall blueman-applet
 rm /tmp/DWM_LOGOUT
 exit

@@ -57,4 +57,4 @@ fi
 
 source ~/.bash_aliases
 export GIT_SSL_NO_VERIFY=true
-
+export _JAVA_AWT_WM_NONREPARENTING=1
