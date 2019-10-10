@@ -1,3 +1,9 @@
+plugins=(
+    zsh-completions
+    zsh-syntax-highlighting
+    zsh-autosuggestions
+    )
+
 export ZSH=~/.oh-my-zsh
 export UPDATE_ZSH_DAYS=14
 export LANG=en_US.UTF-8
@@ -11,7 +17,7 @@ ZSH_THEME="agnoster"
 ENABLE_CORRECTION="false"
 COMPLETION_WAITING_DOTS="true"
 CASE_SENSITIVE="true"
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'
 
 eval `dircolors ~/.dir_colors/dircolors`
 
@@ -21,11 +27,6 @@ source $ZSH/oh-my-zsh.sh
 unsetopt inc_append_history
 unsetopt share_history
 
-plugins=(
-    zsh-completions
-    zsh-syntax-highlighting
-    zsh-autosuggestions
-    )
 autoload -U compinit && compinit
 
 function ls () {
