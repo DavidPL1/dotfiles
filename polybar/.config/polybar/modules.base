@@ -1,0 +1,224 @@
+; ===========
+; CPU Module
+; ==========
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-underline = #f90000
+label = CPU: %percentage%%
+
+; ===========
+; VPN Module
+; ==========
+[module/vpn-status]
+type = custom/script
+exec = $(echo broken)
+format-underline = #03fccf
+;click-left = /opt/cisco/anyconnect/bin/vpn connect vpn-gate-1.uni-bielefeld.de
+interval = 5
+
+; ===========
+; WLAN Module
+; ==========
+[module/wlan]
+type = internal/network
+interface = wlp61s0
+interval = 3.0
+
+; format-connected = <ramp-signal> <label-connected>
+format-connected = %{A1:networkmanager_dmenu:}<label-connected>%{A}
+format-connected-underline = #55aa55
+format-disconnected-underline = #f90000
+
+label-connected = %essid%: %local_ip%
+label-disconnected = %{A1:networkmanager_dmenu:}%ifname%%{A}
+
+; ===========
+; ETH Module
+; ==========
+[module/eth]
+type = internal/network
+interface = enp0s31f6
+interval = 3.0
+
+format-connected = %{A1:networkmanager_dmenu:}<label-connected>%{A}
+format-connected-underline = #55aa55
+label-connected = eth: %local_ip%
+
+format-disconnected-underline = #f90000
+label-disconnected = %ifname%
+
+; ===========
+; Time Module
+; ===========
+[module/time]
+type = internal/date
+
+; Update interval
+interval = 1.0
+
+; Format
+time = %H:%M:%S
+
+; Label
+label            = %time%
+label-foreground = ${colors.black}
+label-background = ${colors.cyan}
+label-padding    = 1
+
+; ===========
+; VOL Module
+; ==========
+[module/volume]
+type = internal/alsa
+
+master-soundcard = default
+speaker-soundcard = default
+headphone-soundcard = default
+
+;headphone-mixer = Headphone
+;headphone-id = 16
+
+mapping = true
+
+format-volume = VOL: <label-volume>%
+format-muted = <label-muted>
+label-volume = %percentage%
+label-muted = muted
+label-muted-foreground = #aaa
+format-volume-padding = 2
+format-muted-padding = 2
+format-underline = #0341fc
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = ADP1
+full-at = 98
+
+format-charging = BAT: <label-charging>
+format-discharging-underline = #ffb52a
+
+format-discharging = BAT: <label-discharging>
+format-charging-underline = #006400
+
+format-full-underline = ${self.format-charging-underline}
+
+; ===========
+; Date Module
+; ===========
+[module/date]
+type = internal/date
+
+; Update interval
+interval = 1.0
+
+; Format
+date = %A, %d %B
+
+; Label
+label            = %date%
+label-foreground = ${colors.black}
+label-background = ${colors.cyan}
+label-padding    = 1
+
+; ============
+; Audio Module
+; ============
+[module/audio]
+type = internal/pulseaudio
+
+; Volume label
+label-volume            = Volume: %percentage%%
+label-volume-foreground = ${colors.black}
+label-volume-background = ${colors.cyan}
+label-volume-padding    = 1
+
+; Muted label
+label-muted            = Muted
+label-muted-foreground = ${colors.black}
+label-muted-background = ${colors.red}
+label-muted-padding    = 1
+
+; ==============
+; Network Module
+; ==============
+[module/network]
+type = internal/network
+
+; Interface
+interface = wlp61s0
+
+; Connected label
+label-connected            = Download: %downspeed%
+label-connected-foreground = ${colors.black}
+label-connected-background = ${colors.cyan}
+label-connected-padding    = 1
+
+; Disconnected label
+label-disconnected            = Disconnected
+label-disconnected-foreground = ${colors.black}
+label-disconnected-background = ${colors.red}
+label-disconnected-padding    = 1
+
+; ===========
+; Lock Module
+; ===========
+[module/lock]
+type = custom/text
+
+; Label
+content            = Lock
+content-foreground = ${colors.black}
+content-background = ${colors.blue}
+content-padding    = 1
+
+; Mouse click
+click-left = betterlockscreen -l
+
+; =============
+; Logout Module
+; =============
+[module/logout]
+type = custom/text
+
+; Label
+content            = Logout
+content-foreground = ${colors.black}
+content-background = ${colors.blue}
+content-padding    = 1
+
+; Mouse click
+click-left = bspc quit
+
+; ===============
+; Poweroff Module
+; ===============
+[module/poweroff]
+type = custom/text
+
+; Label
+content            = Poweroff
+content-foreground = ${colors.black}
+content-background = ${colors.blue}
+content-padding    = 1
+
+; Mouse click
+click-left = poweroff
+
+; =====
+; Other
+; =====
+[settings]
+screenchange-reload     = true
+;compositing-background = xor
+;compositing-foreground = source
+;compositing-border     = over
+pseudo-transparency     = true
+
+; ==
+; WM
+; ==
+[global/wm]
+margin-top    = 0
+margin-bottom = 0

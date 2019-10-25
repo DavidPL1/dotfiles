@@ -1,0 +1,157 @@
+; =======
+; Top Bar
+; =======
+[bar/bottom]
+monitor = ${env:MONITOR:}
+; Size
+width  = 100%
+height = 30
+
+; Offset
+;offset-x = 50%
+;offset-y = 50%
+
+; Position
+bottom = true
+
+; Radius
+radius = 0
+
+; Align modules fixed to middle
+fixed-center = true
+
+; Colors
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+; Underline
+line-size  = 4
+line-color = ${colors.white}
+
+; Border
+border-size  = 0
+
+; Padding
+padding-left  = 0
+padding-right = 0
+
+; Margin of modules
+module-margin-left  = 0
+module-margin-right = 0
+
+; Font
+font-0 = Consolas:size=8;3
+
+; Modlues
+modules-left   = 
+modules-center = 
+modules-right  = wlan eth vpn-openvpn-status 
+
+; Cursor actions
+cursor-click  = pointer
+cursor-scroll = ns-resize
+
+; Separator
+separator = " "
+
+; =======
+; Top Bar
+; =======
+[bar/top]
+; Size
+monitor = ${env:MONITOR:}
+width  = 100%
+height = 50
+
+; Offset
+;offset-x = 50%
+;offset-y = 50%
+
+; Position
+bottom = false
+
+; Radius
+radius = 0
+
+; Align modules fixed to middle
+fixed-center = true
+
+; Colors
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+; Underline
+line-size  = 4
+line-color = ${colors.white}
+
+; Border
+border-size  = 0
+
+; Padding
+padding-left  = 0
+padding-right = 0
+
+; Margin of modules
+module-margin-left  = 0
+module-margin-right = 0
+
+; Font
+font-0 = Consolas:size=8;3
+
+; Modlues
+modules-left   = bspwm
+modules-center = time date
+modules-right  = volume cpu battery lock logout poweroff
+
+; Cursor actions
+cursor-click  = pointer
+cursor-scroll = ns-resize
+
+; Separator
+separator = " "
+
+; ============
+; bspwm Module
+; ============
+[module/bspwm]
+type = internal/bspwm
+
+; Mouse click
+enable-click = false
+
+; Mouse scroll
+enable-scroll  = false
+reverse-scroll = false
+
+; Separator
+label-separator = " "
+
+; Dimmed label
+label-dimmed         = %name%
+label-dimmed-padding = 1
+
+; Focused label
+label-focused            = %name%
+label-focused-foreground = ${colors.black}
+label-focused-background = ${colors.blue}
+label-focused-padding    = 1
+
+; Occupied label
+label-occupied            = %name%
+label-occupied-foreground = ${colors.black}
+label-occupied-background = ${colors.cyan}
+label-occupied-underline  = ${colors.blue}
+label-occupied-padding    = 1
+
+; Empty labels
+label-empty            = %name%
+label-empty-foreground = ${colors.black}
+label-empty-background = ${colors.cyan}
+label-empty-padding    = 1
+
+; Urgent labels
+label-urgent            = %name%
+label-urgent-foreground = ${colors.black}
+label-urgent-background = ${colors.red}
+label-urgent-padding    = 1
+
