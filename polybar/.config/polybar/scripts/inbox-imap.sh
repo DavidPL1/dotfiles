@@ -6,5 +6,5 @@ inbox=$(curl -sf --netrc-file "$NETRC" -X "STATUS INBOX (UNSEEN)" imaps://"$SERV
 if [ "$inbox" ] && [ "$inbox" -gt 0 ]; then
     echo " $inbox"
 else
-    echo ""
+    echo " 0"
 fi
