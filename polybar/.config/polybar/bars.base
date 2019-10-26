@@ -13,6 +13,9 @@ magenta    = #B48EAD
 cyan       = #8FBCBB
 white      = #D8DEE9
 orange     = #D08770
+urgent     = #B34747
+wsbackground = #7E889E
+wsi3back   = #596170
 
 ; =======
 ; Bottom Bar
@@ -56,14 +59,16 @@ module-margin-left  = 0
 module-margin-right = 0
 
 ; Font
-font-0 = Consolas:size=8;3
+font-0 = FontAwesome:style=Regular:size=18;4
+font-1 = FontAwesome:style=Regular:size=5;4
+font-2 = Consolas:size=15;4
 
 ; Cursor actions
 cursor-click  = pointer
 cursor-scroll = ns-resize
 
 ; Separator
-separator = " "
+separator = "  "
 
 ; =======
 ; Top Bar
@@ -107,12 +112,14 @@ module-margin-left  = 0
 module-margin-right = 0
 
 ; Font
-font-0 = Consolas:size=8;3
+font-0 = FontAwesome:style=Regular:size=18;4
+font-1 = FontAwesome:style=Regular:size=5;4
+font-2 = Consolas:size=15;4
 
 ; Cursor actions
 cursor-click  = pointer
 cursor-scroll = ns-resize
 
 ; Separator
-separator = " "
+separator = "  "
 

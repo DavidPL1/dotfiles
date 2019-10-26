@@ -4,13 +4,10 @@
 [bar/awesome-bottom]
 inherit = bar/base-bottom
 
-; Font
-font-0 = Consolas:size=8;3
-
 ; Modlues
-modules-left   = 
+modules-left   = memory 
 modules-center = 
-modules-right  = wlan eth vpn-openvpn-status 
+modules-right  = cpu 
 
 ; Cursor actions
 cursor-click  = pointer
@@ -22,13 +19,10 @@ cursor-scroll = ns-resize
 [bar/awesome-top]
 inherit = bar/base-top
 
-; Font
-font-0 = FontAwesome:style=Regular:size=10;4
-
 ; Modlues
-modules-left   = ewmh
+modules-left   = wlan eth vpn github inbox-techfak inbox-1und1
 modules-center = time date
-modules-right  = volume cpu battery lock logout poweroff
+modules-right  = info-hackspeed volume battery lock logout poweroff
 
 ; Cursor actions
 cursor-click  = pointer
@@ -39,10 +33,6 @@ cursor-scroll = ns-resize
 ; =======
 [bar/awesome-multimon]
 inherit = bar/base-top
-
-; Font
-font-0 = FontAwesome:style=Regular:size=10;4
-font-1 = Consolas:size=11;4
 
 ; Modlues
 modules-left   = 
@@ -74,3 +64,20 @@ enable-click = false
 ; Create scroll handlers used to cycle desktops
 ; Default: true
 enable-scroll = false
+
+format = <label-state>
+label-active = " %name% "
+label-active-foreground = ${colors.foreground}
+label-active-background = ${colors.background}
+label-active-underline = ${colors.wsbackground}
+label-occupied = " %name% "
+lable-occupied-background = ${colors.background}
+label-occupied-foreground = ${colors.foreground}
+label-occupied-underline = ${colors.wsbackground}
+label-urgent = " %name% "
+label-urgent-foreground = ${colors.urgent}
+label-urgent-underline = ${colors.urgent}
+label-empty = " %name% "
+label-empty-background = ${colors.background}
+label-empty-foreground = ${colors.foreground}
+label-empty-underline = ${colors.background}

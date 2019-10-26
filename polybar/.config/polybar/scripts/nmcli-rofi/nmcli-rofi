@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-NMCLI_ROFI_SOURCE=$HOME/.config/polybar/modules/nmcli-rofi/config
+NMCLI_ROFI_SOURCE=$HOME/.config/polybar/scripts/nmcli-rofi/config
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # default config
