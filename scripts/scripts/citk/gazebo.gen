@@ -1,0 +1,14 @@
+#!/bin/bash
+
+source $HOME/scripts/citk/token.sh
+#cd ~/citk/dist && git pull --rebase
+
+$HOME/citk/jenkins/job-configurator --on-error=continue \
+--cache-directory=/tmp/cache \
+--num-processes=4 \
+generate \
+-D make.threads=4 \
+$HOME/citk/dist/distributions/ptbt.distribution \
+--delete-other --delete-other-pattern=ci-deploy-ptbt$ \
+-m ci-deploy -u $JENKINS_USER -a $JENKINS_TOKEN \
+-D cudagen="Pascal" \

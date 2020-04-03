@@ -34,20 +34,21 @@ ramp-coreload-7 = %{F#bf3b3b}█%{F-}
 ; VPN Module
 ; ==========
 [module/vpn]
-type = custom/script
-exec = echo VPN
-exec-if = pgrep -x openvpn
-interval = 5
-format-underline = #268bd2
-format-prefix = "🖧 "
-format-prefix-foreground = #5b
+;type = custom/script
+;exec = echo VPN
+;exec-if = pgrep -x openvpn
+;interval = 5
+;format-underline = #268bd2
+;format-prefix = "🖧 "
+;format-prefix-foreground = #5b
 
 ;[module/vpn-status]
-;type = custom/script
-;exec = $(echo broken)
-;format-underline = #03fccf
-;click-left = /opt/cisco/anyconnect/bin/vpn connect vpn-gate-1.uni-bielefeld.de
-;interval = 5
+type = custom/script
+exec = /home/spectre/.config/polybar/scripts/vpn-openvpn-status.sh
+format-underline = #03fccf
+click-left = SUDO_ASKPASS=~/.config/rofi/askpass sudo -A openvpn /usr/share/openvpn/citec.conf &
+click-right = SUDO_ASKPASS=~/.config/rofi/askpass sudo -A pkill openvpn &
+interval = 5
 
 ; ===========
 ; WLAN Module
@@ -397,7 +398,7 @@ interval = 60
 ; =====
 [module/inbox-1und1]
 type = custom/script
-exec = SERVER=imap.1und1.de ~/.config/polybar/scripts/inbox-imap.sh
+exec = SERVER=imap.1und1.de ~/.config/polybar/scripts/inbox-imap.sh 
 label = Private:%output%
 interval = 60
 

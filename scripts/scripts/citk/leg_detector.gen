@@ -1,0 +1,13 @@
+#!/bin/bash
+
+source $HOME/scripts/citk/token.sh
+cd ~/citk/dist && git pull --rebase
+
+$HOME/citk/jenkins/job-configurator --on-error=continue \
+--cache-directory=/vol/cache \
+--num-processes=4 \
+generate \
+-D make.threads=4 \
+$HOME/citk/dist/distributions/legdetect.distribution \
+-m ci-deploy -u $JENKINS_USER -a $JENKINS_TOKEN \
+--delete-other --delete-other-pattern=ci-deploy-legdetect$ \

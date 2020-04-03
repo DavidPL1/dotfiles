@@ -35,9 +35,9 @@ cursor-scroll = ns-resize
 inherit = bar/base-top
 
 ; Modlues
-modules-left   = 
+modules-left   = wlan eth vpn github inbox-techfak inbox-1und1
 modules-center = time date
-modules-right  = volume cpu battery lock logout poweroff
+modules-right  = info-hackspeed volume cpu battery lock logout poweroff
 
 ; Cursor actions
 cursor-click  = pointer

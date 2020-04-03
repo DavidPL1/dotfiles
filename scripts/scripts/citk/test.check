@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cd ~/citk/dist && git pull --rebase
+
+$HOME/citk/jenkins/job-configurator --on-error=continue \
+--cache-directory=/vol/cache \
+platform-requirements \
+$HOME/citk/dist/distributions/pepper-plus-core.distribution \
+-p=ubuntu

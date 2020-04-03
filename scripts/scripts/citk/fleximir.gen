@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cd ~/citk/dist && git pull --rebase
+
+$HOME/citk/jenkins/job-configurator --on-error=continue \
+--cache-directory=/tmp/bg \
+generate \
+--delete-other --delete-other-pattern=ci-deploy-fleximir-nightly$ \
+-m ci-deploy -u $JENKINS_USER -a $JENKINS_TOKEN \
+$HOME/citk/dist/distributions/fleximir-nightly.distribution \

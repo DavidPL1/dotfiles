@@ -1,15 +1,26 @@
-plugins=(
-    zsh-completions
-    zsh-syntax-highlighting
-    zsh-autosuggestions
-    )
+
+if [ -n "$INSIDE_EMACS" ]; then
+    plugins=(
+        zsh-completions
+        zsh-syntax-highlighting
+        zsh-autosuggestions
+        )
+else
+    plugins=(
+        zsh-completions
+        zsh-syntax-highlighting
+        zsh-autosuggestions
+        )
+    export TERM=xterm-256color
+fi
+
+
 
 export ZSH=~/.oh-my-zsh
 export UPDATE_ZSH_DAYS=14
 export LANG=en_US.UTF-8
 export EDITOR=vim
 export OS=`uname -s`
-export TERM=xterm-256color
 
 export $(dbus-launch)
 
@@ -57,5 +68,6 @@ fi
 #esac
 
 source ~/.bash_aliases
+source /opt/ros/melodic/setup.zsh
 export GIT_SSL_NO_VERIFY=true
 export _JAVA_AWT_WM_NONREPARENTING=1

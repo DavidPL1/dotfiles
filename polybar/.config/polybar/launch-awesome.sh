@@ -5,6 +5,7 @@ killall dunst
 killall sxkhd
 
 dunst & 
-sxkhd &
+sxhkd -c ~/.config/sxhkd/awesome-config &
+dockd --daemon &
 
 reload-polybar-awesome

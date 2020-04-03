@@ -1,0 +1,24 @@
+variables:
+  description: Openface Ros Software Stack
+  recipe.maintainer:
+  - David Leins <dleins@techfak.uni-bielefeld.de>
+
+  ros: kinetic
+
+  toolkit.volume:    /vol/master
+  toolkit.dir:       ${toolkit.volume}/openface
+
+  access: public
+
+versions:
+- cuda@9.0
+- cudnn@6.0
+- hyperion-core@catkin-master
+- hyperion-ui-extension@catkin-master
+- hyperion-graph-extension@catkin-master
+#- opencv-contrib@3.4.1
+#- opencv3@3.4.1
+- opencv3-plus-contrib-cuda@3.4.5
+- dlib@v19.14
+- openface-cpp@OpenFace_2.1.0
+- ros-openface@meta_package

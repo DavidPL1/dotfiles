@@ -1,0 +1,30 @@
+variables:
+  description: Person Tracking Benchmarking Tool Distribution
+  recipe.maintainer:
+  - David Leins <dleins@techfak.uni-bielefeld.de>
+
+  prepare-hook-name: distribution-prepare-${distribution-name}
+  prepare-hook/unix: mkdir -p "${toolkit.dir}"
+
+  toolkit.volume: /vol/rcp
+  toolkit.dir: ${toolkit.volume}/ptbt
+
+  ros: kinetic
+
+versions:
+#- dart@release-6.7
+#- libccd@master
+#- octomap@v1.6.8
+#- fcl@master
+#- bullet@master
+#- ubuntu-libgtest@release-1.8.1
+- protobuf@3.6.x
+- ignition-cmake@default
+- ignition-tools@default
+- ignition-math@ign-math4
+- ignition-msgs@ign-msgs1
+- ignition-transport@ign-transport4
+- sdfformat@sdf6
+- simbody@Simbody-3.5.3
+- gazebo@gazebo9
+
