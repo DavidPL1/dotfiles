@@ -1,0 +1,19 @@
+#!/bin/bash
+
+HOME=$(eval echo "~$(logname)")
+
+WM_KEY=$(pwd)/util/ssh/wintermute.pub
+GIT_KEY=$(pwd)/util/ssh/github_rsa.pub
+
+FOUND_GIT=0
+FOUND_WM=0
+
+for key in $(find ${HOME}/.ssh -maxdepth 1 -type f -perm 600 ! -name "*.pub" ! -name "*authorized_keys" ! -name "known_hosts"); do
+	if [ ! $(diff -q <(ssh-keygen -y -e -f $key) <(ssh-keygen -y -e -f $GIT_KEY)) &>/dev/null ]; then FOUND_WM=1; fi
+	if [ ! $(diff -q <(ssh-keygen -y -e -f $key) <(ssh-keygen -y -e -f $WM_KEY)) &>/dev/null ]; then FOUND_GIT=1; fi
+done
+
+#echo "Found github private key: ${FOUND_GIT}"
+#echo "Found wintermute private key: ${FOUND_WM}"
+
+if [[ ${FOUND_GIT} -eq 1 && ${FOUND_WM} -eq 1 ]]; then echo "Found matching private keys!" && exit 0; else exit 1; fi

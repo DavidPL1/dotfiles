@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root" 
+   exit 1
+fi
+
+## Install Database packages
+NEEDED_PKGS="comm -12 <(pacman -Slq|sort) <(sort /etc/maintenance/pacman/lists/extra_installed.txt)"
+pacman -S --needed $(eval ${NEEDED_PKGS}) &> /dev/null
+
+#pacaur -S --noedit --noconfirm --needed $(eval ${NEEDED_PKGS})
+
+## Remove unmentioned packages
+NEW_PKGS="comm -23 <(pacman -Qqe|sort) <(sort /etc/maintenance/pacman/lists/extra_installed.txt)"
+COUNT=$(eval ${NEW_PKGS}|wc -l)
+
+echo "Found $COUNT packages to remove"
+
+return 0
+if [[ $COUNT -gt 0 ]]
+then
+	pacman -Rsu --noconfirm $(eval ${NEW_PKGS})
+fi

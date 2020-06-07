@@ -1,41 +1,38 @@
-current_dir  := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+current_dir := $(shell dirname $(realpath) $(lastword) $(MAKEFILE_LIST))
 exclude_dirs := fonts/ colors/ suckless/
-stow_dirs    := $(filter-out $(exclude_dirs), $(wildcard */))
+stow_dirs := $(filter-out $(exclude_dirs), $(wildcard */))
 
-init:
-	mkdir -p $(HOME)/.vim_runtime/temp_dirs/undodir
-	rm -rf $(HOME)/.oh-my-zsh
+USERHOME := $(shell eval echo "~$$(logname)")
 
-oh-my-zsh:
-	wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
-	sed -i.tmp "s/env zsh//g" install.sh
-	sed -i.tmp "s/chsh -s .*$$//g" install.sh
-	/bin/sh install.sh
-	rm install.sh install.sh.tmp $(HOME)/.zshrc
+include makefiles/package_install.mk
 
-suckless-tools-setup:
-	echo "Creating install dirs for suckless tools"
-	mkdir -p ${HOME}/suckless-tools/install/st
-	mkdir -p ${HOME}/suckless-tools/install/slstatus
-	mkdir -p ${HOME}/suckless-tools/install/dwm
-	echo "Installing suckless-tools"
-	cd ${HOME}/suckless-tools/src/st
-	make install
-	cd ${HOME}/suckless-tools/src/slstatus
-	make install
-	cd ${HOME}/suckless-tools/src/slstatus
-	make install
-	echo "Setting links to /usr/bin"
-	sudo ln -s ${HOME}/suckless-tools/install/dwm/dwm /usr/bin/dwm
-	sudo ln -s ${HOME}/suckless-tools/install/st/st /usr/bin/st
-	sudo ln -s ${HOME}/suckless-tools/install/slstatus/slstatus /usr/bin/slstatus
+bootstrap-install: essential-packages deploy-binaries setup-packagelist-watchdog dotfile-deploy check-matching-keys package-install 
 
-dwm-switcher:
-	sudo ln -s ${HOME}/scripts/switch_dwm.sh /usr/bin/switch_dwm
+deploy-binaries:
+	$(info ##### DEPLOYING GENERAL CUSTOM SCRIPTS #####)
+	@stow --target ${HOME} --dir ${current_dir} --restow bin
+	@echo "$$(logname) ALL=(root) NOPASSWD: ${USERHOME}/bin/restore_packages" | sudo EDITOR='tee -a' visudo
+	@echo "$$(logname) ALL=(root) NOPASSWD: ${USERHOME}/bin/check_unsaved_packages" | sudo EDITOR='tee -a' visudo
 
-stow:
-	stow --target $(HOME) --dir $(current_dir) --restow $(stow_dirs)
+dotfile-deploy:
+	$(info ##### UNSTOWING DOTFILES #####)
 
-all: init oh-my-zsh suckless-tools-setup dwm-switcher stow
+update:
+	$(info ##### UPDATES NYI #####)
 
-.DEFAULT_GOAL := stow
+build-emacs:
+	$(info ##### BUILDING EMACS... #####)
+
+fetch-doom-config:
+	$(info ##### FETCHING DOOM EMACS CONFIG... #####)
+
+fetch-pass-db:
+	$(info ##### FETCHING PASS-DB ... #####)
+
+fetch-org-repo:
+	$(info ##### FETCHING ORG-REPO ... #####)
+
+check-matching-keys:
+	@${current_dir}/util/match_key_pairs || (echo "[ERROR] Needed private keys were not found!"; exit 1)
+
+.DEFAULT_GOAL := setup-packagelist-watchdog
