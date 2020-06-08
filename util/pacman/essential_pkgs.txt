@@ -1,0 +1,15 @@
+feh
+wmctrl
+pass
+vim
+stow
+pacaur
+tmux
+i3-gaps
+ttf-font-awesome
+rofi
+alacritty
+sxhkd
+offlineimap
+the_silver_searcher
+ttf-jetbrains-mono
