@@ -1,0 +1,50 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]];then
+	echo "This script must be run as root"
+	exit 1
+fi
+
+FORCE=1
+
+while getopts "f" OPTION
+do
+	case $OPTION in
+		f)
+			FORCE=0
+			echo "invoked with force flag!"
+			;;
+	esac
+done
+
+mkdir -p /etc/maintenance/pacman/lists
+
+NEW_PKGS="comm -23 <(pacman -Qqm|sort) <(sort /etc/maintenance/pacman/lists/extra_aur_installed.txt)"
+
+COUNT=$(eval ${NEW_PKGS}|wc -l)
+echo "Currently there are ${COUNT} unsaved packages"
+
+if [[ $COUNT -gt 0 ]] && [[ "$FORCE" -eq 1 ]]
+then
+	read -p "Show packages? [y/N] " -n 1 -r
+	echo
+	if [[ $REPLY =~ ^[Yy]$ ]]
+	then
+		eval ${NEW_PKGS} | less
+	fi
+
+	read -p "Save packages? [y/N] " -n 1 -r
+	echo
+	if [[ $REPLY =~ ^[Yy]$ ]]
+	then
+		pacman -Qqm > /etc/maintenance/pacman/lists/extra_aur_installed.txt
+		echo "Saved packages"
+	fi
+fi
+
+ 
+if [[ $COUNT -gt 0 ]] && [[ "$FORCE" -eq 0 ]]
+then
+	pacman -Qqm > /etc/maintenance/pacman/lists/extra_aur_installed.txt
+	echo "Saved packages"
+fi

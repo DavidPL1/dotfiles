@@ -7,18 +7,25 @@ fi
 
 ## Install Database packages
 NEEDED_PKGS="comm -12 <(pacman -Slq|sort) <(sort /etc/maintenance/pacman/lists/extra_installed.txt)"
+NEEDED_AUR_PKGS="sort /etc/maintenance/pacman/lists/extra_aur_installed.txt"
 pacman -S --needed $(eval ${NEEDED_PKGS}) &> /dev/null
-
-#pacaur -S --noedit --noconfirm --needed $(eval ${NEEDED_PKGS})
+pacaur -S --noedit --noconfirm --needed $(eval ${NEEDED_AUR_PKGS}) &> /dev/null
 
 ## Remove unmentioned packages
 NEW_PKGS="comm -23 <(pacman -Qqe|sort) <(sort /etc/maintenance/pacman/lists/extra_installed.txt)"
+NEW_AUR_PKGS="comm -23 <(pacman -Qqm|sort) <(sort /etc/maintenance/pacman/lists/extra_aur_installed.txt)"
 COUNT=$(eval ${NEW_PKGS}|wc -l)
+COUNT_AUR=$(eval ${NEW_AUR_PKGS}|wc -l)
 
-echo "Found $COUNT packages to remove"
+echo "Found $COUNT arch repo packages to remove"
+echo "Found $COUNT_AUR AUR packages to remove"
 
-return 0
 if [[ $COUNT -gt 0 ]]
 then
 	pacman -Rsu --noconfirm $(eval ${NEW_PKGS})
+fi
+
+if [[ $COUNT_AUR -gt 0 ]]
+then
+	pacaur -Rsu --noconfirm $(eval ${NEW_AUR_PKGS})
 fi
