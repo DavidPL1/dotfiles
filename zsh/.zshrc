@@ -22,7 +22,7 @@ export LANG=en_US.UTF-8
 export EDITOR=vim
 export OS=`uname -s`
 
-export $(dbus-launch)
+#export $(dbus-launch)
 
 ZSH_THEME="agnoster"
 ENABLE_CORRECTION="false"
@@ -68,6 +68,5 @@ fi
 #esac
 
 source ~/.bash_aliases
-source /opt/ros/melodic/setup.zsh
 export GIT_SSL_NO_VERIFY=true
 export _JAVA_AWT_WM_NONREPARENTING=1
