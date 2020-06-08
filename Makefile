@@ -11,8 +11,6 @@ bootstrap-install: essential-packages deploy-binaries setup-packagelist-watchdog
 deploy-binaries:
 	$(info ##### DEPLOYING GENERAL CUSTOM SCRIPTS #####)
 	@stow --target ${HOME} --dir ${current_dir} --restow bin
-	@echo "$$(logname) ALL=(root) NOPASSWD: ${USERHOME}/bin/restore_packages" | sudo EDITOR='tee -a' visudo
-	@echo "$$(logname) ALL=(root) NOPASSWD: ${USERHOME}/bin/check_unsaved_packages" | sudo EDITOR='tee -a' visudo
 
 dotfile-deploy:
 	$(info ##### UNSTOWING DOTFILES #####)
@@ -22,9 +20,27 @@ update:
 
 build-emacs:
 	$(info ##### BUILDING EMACS... #####)
+	@git clone git@github.com:emacs-mirror/emacs.git ${USERHOME}/git/emacs
+	@cd ${USERHOME}/git/emacs; gith checkout emacs-27; ./autogen.sh; ./configure && make -j8 && sudo make install
+
+update-emacs:
+	$(info ##### UPDATING EMACS... #####)
+	@cd ${USERHOME}/git/emacs; git checkout emacs-27; git pull --rebase; ./autogen.sh; ./configure && make -j8 && sudo make install
 
 fetch-doom-config:
 	$(info ##### FETCHING DOOM EMACS CONFIG... #####)
+	#@git clone --depth 1 https://github.com/hlissner/doom-emacs ${USERHOME}/.emacs.d
+	@rm -rf ${USERHOME}/.doom.d
+	#@git clone git@github.com:DavidPL1/doom-config.git ${USERHOME}/.doom.d
+	
+	### Workaround for doom bug not updating package lists correctly:
+	@cd ${USERHOME}/.emacs.d/.local/straight/repos/melpa && git pull
+	@rm -f ${USERHOME}/.emacs.d/.local/straight/build-cache.el
+	@${USERHOME}/.emacs.d/bin/doom sync
+
+	@${USERHOME}/.emacs.d/bin/doom install --no-env
+	@sudo ln -s ${USERHOME}/.emacs.d/bin/doom ${USERHOME}/bin/doom
+	@doom sync
 
 fetch-pass-db:
 	$(info ##### FETCHING PASS-DB ... #####)
