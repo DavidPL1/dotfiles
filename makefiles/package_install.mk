@@ -1,6 +1,9 @@
 DISTRI := $(shell cat /etc/lsb-release | grep -o DISTRIB_ID.* | awk -F= '{print $$2}')
 current_dir := $(shell pwd)
 
+ESSENTIALS := $(shell sort ${current_dir}/util/pacman/essential_pkgs.txt)
+AUR_ESSENTIALS := $(shell sort ${current_dir}/util/pacman/essential_aur_pkgs.txt)
+
 ifeq ($(DISTRI), ManjaroLinux)
 package-install: pacman-packages
 	$(info ### pacman install directive finished ###)
@@ -9,7 +12,7 @@ essential-packages: pacman-essential
 	$(info ### pacman essental packages directive finished ###)
 
 setup-packagelist-watchdog:
-	@${current_dir}/util/pacman/set_package_cron_watchdog
+	@sudo ${current_dir}/util/pacman/set_package_cron_watchdog
 	$(info ##### CRONJOB FOR PACMAN CLEANUP DEPLOYED #####)
 
 else ifeq ($(DISTRI), Ubuntu)
@@ -37,5 +40,5 @@ apt-essential:
 
 pacman-essential:
 	$(info ### Detected Arch/Manjaro. Running essential pacman install directive ###)
-	$(warning ### Testing how errors look like ###)
-	@pacman -S --needed --noconfirm vim pacaur stow
+	@sudo pacman --noconfirm --needed -S ${ESSENTIALS}
+	@sudo pacaur --noedit --noconfirm --needed -S ${AUR_ESSENTIALS}
